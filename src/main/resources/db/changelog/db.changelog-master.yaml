@@ -1,0 +1,9 @@
+databaseChangeLog:
+-   changeSet:
+        id: 1
+        author: r.sokolov
+        changes:
+        -   sqlFile:
+                path: classpath:/db/sql/1_init_void_database.sql
+                splitStatements: false
+                endDelimiter: ";"

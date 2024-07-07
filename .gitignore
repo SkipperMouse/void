@@ -1,0 +1,19 @@
+### Graddle ###
+.gradle
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Files ###
+/spring-shell.log
+/void.log
+
