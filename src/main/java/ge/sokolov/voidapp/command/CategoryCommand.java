@@ -1,41 +1,30 @@
 package ge.sokolov.voidapp.command;
 
-import ge.sokolov.voidapp.exception.ValidationException;
 import ge.sokolov.voidapp.facade.TimeManagementFacade;
 import lombok.RequiredArgsConstructor;
-import org.springframework.shell.command.CommandHandlingResult;
-import org.springframework.shell.command.annotation.ExceptionResolver;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
-import org.springframework.shell.standard.ShellOption;
+import org.springframework.shell.command.annotation.Command;
+import org.springframework.shell.command.annotation.Option;
 
-import java.rmi.ServerException;
-
-@ShellComponent
+@Command(command = "category", alias = "c", group = "category", description = "Work with categories of tasks")
 @RequiredArgsConstructor
 public class CategoryCommand {
 
     private final TimeManagementFacade timeManagementFacade;
 
-    @ShellMethod(key = "category", value = "Work with categories of tasks")
-    public String processCategoryCommand(
-            @ShellOption(value = {"-l", "--list"}, help = "List of all categories", defaultValue = "") String listFlag,
-            @ShellOption(value = {"-n", "--name"}, help = "Name of the new category", defaultValue = "") String categoryName) {
-        return timeManagementFacade.processCategory(categoryName, listFlag);
+    @Command(command = "--list", alias = {"-l", "ls"}, description = "List of all categories")
+    public String getListOfCategories() {
+        return timeManagementFacade.findAllCategories();
     }
 
-    @ExceptionResolver({ValidationException.class})
-    String handleApplicationException(ValidationException e) {
-        return e.getMessage();
+    @Command(command = "", alias = "", description = "Save new category")
+    public String saveNewCategory(@Option(description = "Name of the category") String categoryName) {
+        return timeManagementFacade.saveCategory(categoryName);
     }
 
-    @ExceptionResolver({ServerException.class})
-    String handleApplicationException(ServerException e) {
-        return e.getMessage();
+
+    @Command(command = "rm", alias = "rm", description = "Remove category")
+    public String removeCategory(@Option(description = "Name of the category") String categoryName) {
+        return timeManagementFacade.removeCategory(categoryName);
     }
 
-    @ExceptionResolver({Exception.class})
-    CommandHandlingResult handleOtherException(RuntimeException e) {
-        return CommandHandlingResult.of(e.getMessage());
-    }
 }

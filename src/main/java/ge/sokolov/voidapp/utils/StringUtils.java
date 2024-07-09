@@ -15,7 +15,6 @@ public class StringUtils {
      */
     public String toCategoriesResponse(@NotEmpty Collection<String> categories) {
         return Response.CATEGORY_LIST +
-               String.join(System.lineSeparator(), categories) +
-               System.lineSeparator();
+               String.join(System.lineSeparator(), categories);
     }
 }

@@ -31,4 +31,11 @@ public class CategoryService {
     public Set<Category> findAll() {
         return repository.findAll();
     }
+
+    public void deleteByName(String categoryName) {
+        int deletedCount = repository.deleteByName(categoryName);
+        if (deletedCount == 0) {
+            throw new ValidationException(String.format(Response.ERROR_CATEGORY_NOT_EXISTS, categoryName));
+        }
+    }
 }
