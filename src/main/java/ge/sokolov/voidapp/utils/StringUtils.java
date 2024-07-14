@@ -1,20 +1,20 @@
 package ge.sokolov.voidapp.utils;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.experimental.UtilityClass;
-
 import java.util.Collection;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class StringUtils {
 
-    /**
-     *
-     * @param categories - Receive not empty collection of categories
-     * @return formatted String of user categories
-     */
-    public String toCategoriesResponse(@NotEmpty Collection<String> categories) {
-        return Response.CATEGORY_LIST +
-               String.join(System.lineSeparator(), categories);
-    }
+  /**
+   * @param firstString - First line of the new String
+   * @param stringCollection - Receive not empty collection strings which will be concatenated with
+   *     first string
+   * @return formatted String separated with new lines
+   */
+  public String concatenateWithNewLines(
+      String firstString, @NotEmpty Collection<String> stringCollection) {
+    return firstString + String.join(System.lineSeparator(), stringCollection);
+  }
 }

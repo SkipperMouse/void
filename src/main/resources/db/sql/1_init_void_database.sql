@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS category
 CREATE TABLE IF NOT EXISTS time_management
 (
     id              UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    date            DATE UNIQUE,
     category_id     UUID,
     task            VARCHAR(255),
     time_in_minutes BIGINT,
@@ -27,4 +28,6 @@ CREATE TABLE IF NOT EXISTS time_management
     version         BIGINT,
     CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES category (id)
 );
+
+CREATE INDEX IF NOT EXISTS ix_time_management_task_date ON time_management USING btree (date);
 

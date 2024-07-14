@@ -10,13 +10,13 @@ import org.springframework.shell.jline.PromptProvider;
 @Configuration
 public class ShellConfig implements PromptProvider {
 
-    @Override
-    public AttributedString getPrompt() {
-        return new AttributedString("void:>");
-    }
+  @Override
+  public AttributedString getPrompt() {
+    return new AttributedString("void:>");
+  }
 
-    @Bean
-    public CommandExceptionResolver commandExceptionResolver() {
-        return new ShellExceptionResolver();
-    }
+  @Bean
+  public CommandExceptionResolver commandExceptionResolver() {
+    return new ShellExceptionResolver();
+  }
 }
